@@ -15,7 +15,7 @@
   <script>
     const stripe = Stripe("{{ stripe_pk }}");
     document.getElementById("buy-btn").addEventListener("click", async () => {
-      const res = await fetch("{% url 'create-checkout-session' item.pk %}");
+      const res = await fetch("{% url 'shop:create-checkout-session' item.pk %}");
       if (!res.ok) {
         const txt = await res.text();
         alert("Error: " + txt);
