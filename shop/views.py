@@ -16,7 +16,7 @@ def item_page(request: HttpRequest, pk) -> HttpResponse:
     item = get_object_or_404(Item, pk=pk)
     publishable_key = config("STRIPE_PUBLISHABLE_KEY")
     return render(
-        request, "products/item.html", {"item": item, "stripe_pk": publishable_key}
+        request, "shop/item.html", {"item": item, "stripe_pk": publishable_key}
     )
 
 
