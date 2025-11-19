@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Buy {{ item.name }}</title>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <h1>{{ item.name }}</h1>
+  <p>{{ item.description }}</p>
+  <p>Price: {{ item.price }} {{ item.currency|upper }}</p>
+
+  <button id="buy-btn">Buy</button>
+
+  <script>
+    const stripe = Stripe("{{ stripe_pk }}");
+    document.getElementById("buy-btn").addEventListener("click", async () => {
+      const res = await fetch("{% url 'create-checkout-session' item.pk %}");
+      if (!res.ok) {
+        const txt = await res.text();
+        alert("Error: " + txt);
+        return;
+      }
+      const data = await res.json();
+      const session_id = data.session_id;
+      const { error } = await stripe.redirectToCheckout({ sessionId: session_id });
+      if (error) {
+        alert(error.message);
+      }
+    });
+  </script>
+</body>
+</html>

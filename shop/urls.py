@@ -1,10 +1,13 @@
 from django.urls import path
 
+from . import views
 from .apps import ShopConfig
-from .views import home
 
 app_name = ShopConfig.name
 
 urlpatterns = [
-    path("", home, name="home"),
+    path("item/<int:pk>/", views.item_page, name="item-page"),
+    path(
+        "buy/<int:pk>/", views.create_checkout_session, name="create-checkout-session"
+    ),
 ]
