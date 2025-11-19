@@ -1,20 +1,20 @@
-import os
 from decimal import Decimal
 
 import stripe
+from decouple import config
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_GET
 
 from .models import Item
 
-stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
+stripe.api_key = config("STRIPE_SECRET_KEY")
 
 
 @require_GET
 def item_page(request: HttpRequest, pk) -> HttpResponse:
     item = get_object_or_404(Item, pk=pk)
-    publishable_key = os.getenv("STRIPE_PUBLISHABLE_KEY", "")
+    publishable_key = config("STRIPE_PUBLISHABLE_KEY")
     return render(
         request, "products/item.html", {"item": item, "stripe_pk": publishable_key}
     )
