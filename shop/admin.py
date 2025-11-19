@@ -5,5 +5,5 @@ from .models import Item
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ("name", "price", "currency")
+    list_display = ("id", "name", "price", "currency")
     search_fields = ("name",)
