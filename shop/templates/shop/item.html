@@ -4,13 +4,49 @@
   <meta charset="utf-8">
   <title>Buy {{ item.name }}</title>
   <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: sans-serif;
+    }
+
+    .container {
+      text-align: center;
+      padding: 2rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background-color: #6772e5;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #5469d4;
+    }
+  </style>
 </head>
 <body>
-  <h1>{{ item.name }}</h1>
-  <p>{{ item.description }}</p>
-  <p>Price: {{ item.price }} {{ item.currency|upper }}</p>
-
-  <button id="buy-btn">Buy</button>
+  <div class="container">
+    <h1>{{ item.name }}</h1>
+    <p>{{ item.description }}</p>
+    <p>Price: {{ item.price }} {{ item.currency|upper }}</p>
+    <button id="buy-btn">Buy</button>
+  </div>
 
   <script>
     const stripe = Stripe("{{ stripe_pk }}");
